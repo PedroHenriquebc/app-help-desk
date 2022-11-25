@@ -1,5 +1,11 @@
 <?php 
 
+    session_start();
+
+    if (!isset($_SESSION["autenticado"]) || $_SESSION["autenticado"] != "SIM") {
+        header("Location: index.php?login=erro2");
+    }
+
     $usuarios_cadastrados = [
         ["email" => "adm@teste.com.br", "senha" => "adm123"],
         ["email" => "user@teste.com.br", "senha" => "user123"]
@@ -14,8 +20,9 @@
     }
 
     if ($usuario_autenticado) {
-        echo "Usuário autenticado";
+        $_SESSION["autenticado"] = "SIM";
     } else {
+        $_SESSION["autenticado"] = "NÃO";
         header("Location: index.php?login=erro");
     }
     
